@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="subheader">
+        Page Header
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card TexAlCenter">
+                    <br/>
+                    <h2>Empty Page</h2>
+                    <br/>
+                   
+                    
+                    <br/>
+                    
+                    <h:outputText value="my param: #{initParam['my.param']}"/>
+                    <h:outputText value="my param 2: #{facesContext.externalContext.initParameterMap['my.param']}"/>
+
+                    <span >MY P: #{initParam['my.param']}</span>
+                    <br/>
+                    #{application.serverInfo},
+                    #{request.contextPath}
+                    <br/>
+                    <c:forEach items="#{param.keySet()}" var="p">
+                        #{p}<br/>
+                    </c:forEach>
+                    <ui:repeat value="#{param.values()}" var="p">
+                        #{p}<br/>
+                    </ui:repeat>
+                    #{header}
+                </div>
+            </div>
+        </div>
+        <h:link value="link" outcome="result" >
+                        <f:param id="playerName" name="playerNameParam" value="Rafael"/>
+                        <f:param id="playerSurname" name="playerSurnameParam"  value="Nadal"/>
+                    </h:link>
+        <h:button value="button" outcome="result"  />
+        <h:form>
+             
+            <h:commandLink value="commandlInk"/>
+            <br/>
+            
+            <h:commandButton value="commandButton"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
