@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 
-public class Role implements Serializable {
+public class SysRole implements Serializable {
 
     @Column(unique = true, nullable = false, length = 64)
     @Basic
@@ -20,7 +20,7 @@ public class Role implements Serializable {
     @Id
     private Long id;
 
-    public Role() {
+    public SysRole() {
 
     }
 
