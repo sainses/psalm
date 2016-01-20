@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 
 public class ProjectRole implements Serializable {
 
-    @ManyToOne(targetEntity = Role.class)
-    private Role role;
+    @ManyToOne(targetEntity = SysRole.class)
+    private SysRole role;
 
     @ManyToOne(targetEntity = Project.class)
     private Project project;
@@ -22,11 +22,11 @@ public class ProjectRole implements Serializable {
 
     }
 
-    public Role getRole() {
+    public SysRole getRole() {
         return this.role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(SysRole role) {
         this.role = role;
     }
 

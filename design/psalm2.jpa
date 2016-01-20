@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings status="GENERATED" jaxb-support="false" id="_145323473987524" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="EffortRecord" visibile="true" minimized="false" id="_145323473991327">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323473991433">
+                <jpa:column nullable="false"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="hours" attribute-type="Float" visibile="true" id="_145323473991428"/>
+            <jpa:basic name="enteredAt" attribute-type="java.sql.Timestamp" visibile="true" id="_145323473991431">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="comment" attribute-type="String" visibile="true" id="_145323473991432">
+                <jpa:column length="2048"/>
+            </jpa:basic>
+            <jpa:basic name="effortDate" attribute-type="java.sql.Date" visibile="true" id="_145323473991434">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="task" target-entity="Task" primaryKey="false" connected-entity-id="_145323474011375" visibile="true" id="_145323473991429"/>
+            <jpa:many-to-one name="resource" target-entity="Resource" primaryKey="false" connected-entity-id="_145323474002255" visibile="true" id="_145323473991430"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Project" visibile="true" minimized="false" id="_145323473994235">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323473994241">
+                <jpa:column nullable="false"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="sponsor" attribute-type="String" visibile="true" id="_145323473994236">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="manager" attribute-type="String" visibile="true" id="_145323473994237">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="name" attribute-type="String" visibile="true" id="_145323473994238">
+                <jpa:column unique="true" nullable="false" length="64"/>
+            </jpa:basic>
+            <jpa:basic name="description" attribute-type="String" visibile="true" id="_145323473994239">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="client" attribute-type="String" visibile="true" id="_145323473994240">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="startDate" attribute-type="java.sql.Date" visibile="true" id="_145323473994242">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="ProjectRole" visibile="true" minimized="false" id="_145323473997043">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323473997046"/>
+            <jpa:many-to-one name="role" target-entity="SysRole" primaryKey="false" connected-entity-id="_145323474005963" visibile="true" id="_145323473997044"/>
+            <jpa:many-to-one name="project" target-entity="Project" primaryKey="false" connected-entity-id="_145323473994235" visibile="true" id="_145323473997045"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="ProjectStatus" visibile="true" minimized="false" id="_145323473999747">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323473999752"/>
+            <jpa:basic name="statusDate" attribute-type="java.sql.Date" visibile="true" id="_145323473999748"/>
+            <jpa:basic name="enteredAt" attribute-type="java.sql.Timestamp" visibile="true" id="_145323473999750"/>
+            <jpa:basic name="percentComplete" attribute-type="Float" visibile="true" id="_145323473999753"/>
+            <jpa:basic name="enteredBy" attribute-type="String" visibile="true" id="_145323473999754"/>
+            <jpa:many-to-one name="task" target-entity="Task" primaryKey="false" connected-entity-id="_145323474011375" visibile="true" id="_145323473999749"/>
+            <jpa:many-to-one name="project" target-entity="Project" primaryKey="false" connected-entity-id="_145323473994235" visibile="true" id="_145323473999751"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Resource" visibile="true" minimized="false" id="_145323474002255">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323474002260"/>
+            <jpa:basic name="rate" attribute-type="float" visibile="true" id="_145323474002256"/>
+            <jpa:basic name="resType" attribute-type="String" visibile="true" id="_145323474002257"/>
+            <jpa:basic name="name" attribute-type="String" visibile="true" id="_145323474002258"/>
+            <jpa:basic name="maxUnits" attribute-type="float" visibile="true" id="_145323474002259"/>
+            <jpa:one-to-one name="sysUser" target-entity="SysUser" connected-entity-id="_145323474008567" visibile="true" id="_145323474002261"/>
+            <jpa:many-to-many name="tasks" target-entity="Task" collection-type="java.util.Collection" connected-entity-id="_145323474011375" connected-attribute-id="_145323474011382" visibile="true" id="_145323474002262"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="SysRole" visibile="true" minimized="false" id="_145323474005963">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323474005966"/>
+            <jpa:basic name="name" attribute-type="String" visibile="true" id="_145323474005964">
+                <jpa:column unique="true" nullable="false" length="64"/>
+            </jpa:basic>
+            <jpa:basic name="description" attribute-type="String" visibile="true" id="_145323474005965"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="SysUser" visibile="true" minimized="false" id="_145323474008567">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323474008574">
+                <jpa:column nullable="false"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="lastName" attribute-type="String" visibile="true" id="_145323474008568">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="firstName" attribute-type="String" visibile="true" id="_145323474008569">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="password" attribute-type="String" visibile="true" id="_145323474008570"/>
+            <jpa:basic name="loginId" attribute-type="String" visibile="true" id="_145323474008571">
+                <jpa:column unique="true" nullable="false" length="64"/>
+            </jpa:basic>
+            <jpa:basic name="description" attribute-type="String" visibile="true" id="_145323474008573"/>
+            <jpa:many-to-many name="projectRole" target-entity="ProjectRole" collection-type="java.util.Collection" connected-entity-id="_145323473997043" visibile="true" id="_145323474008572"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Task" visibile="true" minimized="false" id="_145323474011375">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_145323474011384">
+                <jpa:column nullable="false"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="duration" attribute-type="Integer" visibile="true" id="_145323474011376"/>
+            <jpa:basic name="endDate" attribute-type="java.sql.Date" visibile="true" id="_145323474011378"/>
+            <jpa:basic name="work" attribute-type="Integer" visibile="true" id="_145323474011380"/>
+            <jpa:basic name="description" attribute-type="String" visibile="true" id="_145323474011381">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="type" attribute-type="String" visibile="true" id="_145323474011385">
+                <jpa:column nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="startDate" attribute-type="java.sql.Date" visibile="true" id="_145323474011386"/>
+            <jpa:many-to-one name="predecessorTasks" target-entity="Task" primaryKey="false" connected-entity-id="_145323474011375" visibile="true" id="_145323474011377"/>
+            <jpa:many-to-one name="project" target-entity="Project" primaryKey="false" connected-entity-id="_145323473994235" visibile="true" id="_145323474011383"/>
+            <jpa:one-to-one name="parentTask" target-entity="Task" connected-entity-id="_145323474011375" visibile="true" id="_145323474011379"/>
+            <jpa:many-to-many name="resources" target-entity="Resource" mapped-by="tasks" collection-type="java.util.Collection" connected-entity-id="_145323474002255" connected-attribute-id="_145323474002262" visibile="true" id="_145323474011382"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_145323473987525">
+        <plane elementRef="_145323473987524" id="_145323473987526_p"/>
+    </jpa:diagram>
+</jpa:entity-mappings>
