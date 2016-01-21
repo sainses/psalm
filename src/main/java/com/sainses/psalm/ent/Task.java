@@ -48,6 +48,10 @@ public class Task implements Serializable {
     @Basic
     private String type;
 
+    @Column(nullable = false)
+    @Basic
+    private String WBSnumber;
+    
     @Basic
     private Date startDate;
 

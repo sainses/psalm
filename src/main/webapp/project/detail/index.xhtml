@@ -6,7 +6,7 @@
                 template="/template/template.xhtml">
 
     <ui:define name="subheader">
-        Projects
+        Tasks
     </ui:define>
 
     <ui:define name="content">
@@ -14,10 +14,10 @@
         <div class="Container100">
             <div class="ContainerIndent">
                 <div class="Card TexAlCenter">
-                    <br/>
-                    <h2>Empty Page</h2>
-                    <br/>
-                    <span class="gray">Use this page to start from scratch and place your custom content.</span>
+                  
+                    <h2>Task</h2>
+                  
+                    <!--<span class="gray">Use this page to start from scratch and place your custom content.</span>-->
                     <p:dataTable value="#{projectView.projects}" var="proj"   emptyMessage="No projects found">
                         <p:column headerText="ID" sortBy="#{proj.id}">
                             <h:outputText value="#{proj.id}"/>
@@ -35,7 +35,7 @@
                             <h:outputText value="#{proj.startDate}"/>
                         </p:column>
                     </p:dataTable>
-                    <br/><br/>
+                    
                 </div>
             </div>
         </div>

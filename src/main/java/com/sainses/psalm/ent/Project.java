@@ -9,7 +9,8 @@ import javax.persistence.Id;
 
 @Entity
 
-public class Project implements Serializable {
+//public class Project implements Serializable {
+public class Project  {
 
     @Column(nullable = false)
     @Basic
