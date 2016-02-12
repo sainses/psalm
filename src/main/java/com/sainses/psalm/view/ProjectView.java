@@ -42,7 +42,7 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class ProjectView implements Serializable {
-    Logger logger = Logger.getLogger(ProjectView.class.getName());
+    private static final Logger logger = Logger.getLogger(ProjectView.class.getName());
     
     @EJB
     private ProjectEJB projectEJB;

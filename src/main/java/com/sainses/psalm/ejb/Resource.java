@@ -23,7 +23,6 @@
  */
 package com.sainses.psalm.ejb;
 
-import com.sainses.psalm.ent.Project;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

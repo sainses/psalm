@@ -22,7 +22,10 @@
     </h:head>
 
     <h:body>
-        
+        <h:form id="MainMessageForm">
+            <p:growl id="PsalmMessages" showDetail="true"  severity="info, warn" autoUpdate="true" />
+            <p:growl id="PsalmErrMessages" showDetail="true"  severity="error, fatal" sticky="true" autoUpdate="true" life="60000"/>
+        </h:form>
         <ui:include src="topbar.xhtml" />
         
         <ui:include src="layoutmenu.xhtml" />
@@ -35,7 +38,7 @@
             
             <div class="Container100 TexAlCenter Gray FontAdamantiumRegular">
                 <div class="EmptyBox30"></div>
-                PrimeFaces Adamantium Theme And Layout | All rights reserved.
+                #{psalm.copyright} 
             </div>
 
         </div>

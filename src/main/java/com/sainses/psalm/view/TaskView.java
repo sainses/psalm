@@ -25,8 +25,10 @@ package com.sainses.psalm.view;
 
 import com.sainses.psalm.ejb.ProjectEJB;
 import com.sainses.psalm.ent.Project;
+import com.sainses.psalm.ent.Task;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -42,22 +44,34 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class TaskView implements Serializable {
-    Logger logger = Logger.getLogger(TaskView.class.getName());
+    private static final Logger logger = Logger.getLogger(TaskView.class.getName());
     
     @EJB
     private ProjectEJB projectEJB;
     
-    private List<Project> projects;
+    private List<Task> tasks;
+    private Project selectedProject;
     
     @PostConstruct
     private void init() {
-        projects = projectEJB.getAllProjects();
-    }
-        
-    // getters and setters
-
-    public List<Project> getProjects() {
-        return projects;
+        // tasks = projectEJB.getTasks(selectedProject);
     }
     
+    public void initTasks() {
+        logger.log(Level.INFO, "initializing tasks for project {0}", selectedProject);
+        tasks = projectEJB.getTasks(selectedProject);
+    }
+    // getters and setters
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public Project getSelectedProject() {
+        return selectedProject;
+    }
+
+    public void setSelectedProject(Project selectedProject) {
+        this.selectedProject = selectedProject;
+    }    
 }

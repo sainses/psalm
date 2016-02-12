@@ -1,46 +1,52 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/template.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/template/template.xhtml" 
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="subheader">
-        Tasks
-    </ui:define>
+    <ui:define name="content">        
+        <f:metadata>
+            <f:viewParam name="project" value="#{taskView.selectedProject}" 
+                         converter="#{projectConverter}" required="#{not facesContext.postback}" requiredMessage="Missing or invalid project"/>
 
-    <ui:define name="content">
+            <f:viewAction action="#{taskView.initTasks()}" />
+        </f:metadata>
 
-        <div class="Container100">
-            <div class="ContainerIndent">
-                <div class="Card TexAlCenter">
-                  
-                    <h2>Task</h2>
-                  
-                    <!--<span class="gray">Use this page to start from scratch and place your custom content.</span>-->
-                    <p:dataTable value="#{projectView.projects}" var="proj"   emptyMessage="No projects found">
-                        <p:column headerText="ID" sortBy="#{proj.id}">
-                            <h:outputText value="#{proj.id}"/>
-                        </p:column>
-                        <p:column headerText="Name" sortBy="#{proj.name}">
-                            <h:outputText value="#{proj.name}"/>
-                        </p:column>
-                        <p:column headerText="Description" >
-                            <h:outputText value="#{proj.description}"/>
-                        </p:column>
-                        <p:column headerText="Client" >
-                            <h:outputText value="#{proj.client}"/>
-                        </p:column>
-                        <p:column headerText="Start Date" >
-                            <h:outputText value="#{proj.startDate}"/>
-                        </p:column>
-                    </p:dataTable>
-                    
+        <p:outputPanel id="reportResults">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <div class="Card TexAlCenter">                 
+                        <h2>Tasks</h2>  
+                        #{param}
+                        <!--<span class="gray">Use this page to start from scratch and place your custom content.</span>-->
+                        <p:dataTable value="#{taskView.tasks}" var="task"   emptyMessage="No tasks found">
+                            <p:column headerText="WBS" sortBy="#{task.work}">
+                                <h:outputText value="#{task.work}"/>
+                            </p:column>
+                            <p:column headerText="Description" sortBy="#{task.description}">
+                                <h:outputText value="#{task.description}"/>
+                            </p:column>
+                            <p:column headerText="Duration" sortBy="#{task.duration}">
+                                <h:outputText value="#{task.duration}"/>
+                            </p:column>
+                            <p:column headerText="End Date" sortBy="#{task.endDate}">
+                                <h:outputText value="#{task.endDate}"/>
+                            </p:column>
+                            <p:column headerText="Start Date" sortBy="#{task.startDate}">
+                                <h:outputText value="#{task.startDate}"/>
+                            </p:column>
+                            <p:column headerText="Type" sortBy="#{task.type}">
+                                <h:outputText value="#{task.type}"/>
+                            </p:column>
+                            <p:column headerText="Work" sortBy="#{task.work}">
+                                <h:outputText value="#{task.work}"/>
+                            </p:column>
+                        </p:dataTable>                    
+                    </div>
                 </div>
-            </div>
-        </div>
-
-
-    </ui:define>
-
+            </div>                 
+        </p:outputPanel>      
+    </ui:define>       
 </ui:composition>

@@ -66,4 +66,8 @@ public class ProjectEJB {
 
         return tasks;
     }
+    
+    public Project findProject(long id) {
+        return em.find(Project.class, id);
+    }
 }
