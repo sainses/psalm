@@ -9,8 +9,7 @@
     <ui:define name="content">        
         <f:metadata>
             <f:viewParam name="project" value="#{taskView.selectedProject}" 
-                         converter="#{projectConverter}" required="#{not facesContext.postback}" requiredMessage="Missing or invalid project"/>
-
+                         converter="#{projectConverter}" required="#{not facesContext.postback}" requiredMessage="The project is either invalid or missing"/>
             <f:viewAction action="#{taskView.initTasks()}" />
         </f:metadata>
 

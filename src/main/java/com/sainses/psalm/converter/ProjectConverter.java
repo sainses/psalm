@@ -20,18 +20,21 @@ import com.sainses.psalm.ent.Project;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.Dependent;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.inject.Named;
 
 /**
- * Facility converter
+ * Project converter
  *
  * @author vuppala
  */
+// @FacesConverter(value = "projectConverter")
 @Named    // workaround for injecting an EJB in a converter
-// @FacesConverter(value = "facilityConverter")
+@Dependent
 public class ProjectConverter implements Converter {
 
     @EJB
@@ -40,8 +43,7 @@ public class ProjectConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Project project;
-
+        logger.log(Level.SEVERE, "Project converter.");
         if (projectEJB == null) {
             logger.log(Level.SEVERE, "EJB is null. Injection did not work.");
             return null;
@@ -51,19 +53,25 @@ public class ProjectConverter implements Converter {
             logger.log(Level.FINE, "Empty Project ID");
             return null;
         } else {
-            project = projectEJB.findProject(Long.parseLong(value));
+            Project project = projectEJB.findProject(Long.parseLong(value));
             return project;
         }
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null || value.equals("")) {
+        if (value == null) {
             logger.log(Level.WARNING, "Null object");
-            return null;
+            return "";
+        } 
+        
+        if (value instanceof Project) {
+             return ((Project) value).getId().toString();
         } else {
             // logger.log(Level.FINE, "Exp number: " + ((Experiment) value).getId().toString());
-            return ((Project) value).getId().toString();
+            logger.log(Level.WARNING, "invalide Project");
+            // new FacesMessage(value + " is not a valid Project")
+            throw new ConverterException(value + " is not a valid Project");
         }
     }
 }
