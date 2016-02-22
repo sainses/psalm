@@ -10,13 +10,15 @@ import javax.persistence.Id;
 
 public class SysRole implements Serializable {
 
-    @Column(unique = true, nullable = false, length = 64)
+    @Column(name = "name", unique = true, nullable = false, length = 64)
     @Basic
     private String name;
 
+    @Column(name = "description")
     @Basic
     private String description;
 
+    @Column(name = "id")
     @Id
     private Long id;
 

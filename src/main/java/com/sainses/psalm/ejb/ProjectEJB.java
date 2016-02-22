@@ -25,6 +25,7 @@ package com.sainses.psalm.ejb;
 
 import com.sainses.psalm.ent.Project;
 import com.sainses.psalm.ent.Task;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,27 +47,31 @@ public class ProjectEJB {
 
     /**
      * Get a list of all the projects
-     * 
-     * @return list of projects 
+     *
+     * @return list of projects
      */
     public List<Project> getAllProjects() {
         TypedQuery<Project> query = em.createQuery("select p from Project p", Project.class);
         List<Project> projects = query.getResultList();
-        logger.log(Level.INFO, "Number of projects returned: {0}", projects == null? null : projects.size());
+        logger.log(Level.INFO, "Number of projects returned: {0}", projects == null ? null : projects.size());
 
         return projects;
     }
-    
+
     public List<Task> getTasks(Project project) {
+        if (project == null) {
+            return Collections.<Task>emptyList();
+//            return null;
+        }
         TypedQuery<Task> query = em.createQuery("select t from Task t where t.project = :project", Task.class)
-                                 .setParameter("project", project);
-        
+                .setParameter("project", project);
+
         List<Task> tasks = query.getResultList();
-        logger.log(Level.INFO, "Number of projects returned: {0}", tasks == null? null : tasks.size());
+        logger.log(Level.INFO, "Number of projects returned: {0}", tasks == null ? null : tasks.size());
 
         return tasks;
     }
-    
+
     public Project findProject(long id) {
         return em.find(Project.class, id);
     }

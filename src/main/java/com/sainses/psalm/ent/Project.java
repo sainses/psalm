@@ -9,34 +9,33 @@ import javax.persistence.Id;
 
 @Entity
 
-//public class Project implements Serializable {
 public class Project implements Serializable {
 
-    @Column(nullable = false)
+    @Column(name = "sponsor", nullable = false)
     @Basic
     private String sponsor;
 
-    @Column(nullable = false)
+    @Column(name = "manager", nullable = false)
     @Basic
     private String manager;
 
-    @Column(unique = true, nullable = false, length = 64)
+    @Column(name = "name", unique = true, nullable = false, length = 64)
     @Basic
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "description", nullable = false)
     @Basic
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "client", nullable = false)
     @Basic
     private String client;
 
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "start_date", nullable = false)
     @Basic
     private Date startDate;
 
@@ -44,31 +43,6 @@ public class Project implements Serializable {
 
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Project)) {
-            return false;
-        }
-        Project other = (Project) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.sainses.psalm.ent.Project[ id=" + id + " ]";
-    }
-    
     public String getSponsor() {
         return this.sponsor;
     }

@@ -1,37 +1,51 @@
 package com.sainses.psalm.ent;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "resource")
 
 public class Resource implements Serializable {
 
+    @Column(name = "rate")
     @Basic
     private float rate;
 
+    @Column(name = "res_type")
     @Basic
     private String resType;
 
+    @Column(name = "name")
     @Basic
     private String name;
 
+    @Column(name = "max_units")
     @Basic
     private float maxUnits;
 
+    @Column(name = "id")
     @Id
     private Long id;
 
     @OneToOne(targetEntity = SysUser.class)
+    @JoinColumn(name = "sysuser", referencedColumnName = "id", nullable = false)
     private SysUser sysUser;
 
     @ManyToMany(targetEntity = Task.class)
-    private Collection<Task> tasks;
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "tasks", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "resources", referencedColumnName = "id")})
+    private List<Task> tasks;
 
     public Resource() {
 
@@ -85,11 +99,11 @@ public class Resource implements Serializable {
         this.sysUser = sysUser;
     }
 
-    public Collection<Task> getTasks() {
+    public List<Task> getTasks() {
         return this.tasks;
     }
 
-    public void setTasks(Collection<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 }

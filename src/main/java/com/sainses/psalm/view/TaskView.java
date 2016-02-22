@@ -54,6 +54,7 @@ public class TaskView implements Serializable {
     
     @PostConstruct
     private void init() {
+        logger.log(Level.INFO, "Postconstruct {0} ", TaskView.class.getName());
         // tasks = projectEJB.getTasks(selectedProject);
     }
     

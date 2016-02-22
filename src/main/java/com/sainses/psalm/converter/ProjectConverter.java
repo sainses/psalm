@@ -17,8 +17,6 @@ package com.sainses.psalm.converter;
 
 import com.sainses.psalm.ejb.ProjectEJB;
 import com.sainses.psalm.ent.Project;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.faces.component.UIComponent;
@@ -33,45 +31,37 @@ import javax.inject.Named;
  * @author vuppala
  */
 // @FacesConverter(value = "projectConverter")
-@Named    // workaround for injecting an EJB in a converter
-@Dependent
+@Named
+@Dependent  // can be applicaoitn scoped
 public class ProjectConverter implements Converter {
 
     @EJB
     private ProjectEJB projectEJB;
-    private static final Logger logger = Logger.getLogger(ProjectConverter.class.getName());
+    // private static final Logger logger = Logger.getLogger(ProjectConverter.class.getName());
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        logger.log(Level.SEVERE, "Project converter.");
-        if (projectEJB == null) {
-            logger.log(Level.SEVERE, "EJB is null. Injection did not work.");
+    public Object getAsObject(FacesContext context, UIComponent component, String stringValue) {
+        if (stringValue == null || stringValue.isEmpty()) {
             return null;
-        }
-
-        if (value == null || value.equals("")) {
-            logger.log(Level.FINE, "Empty Project ID");
-            return null;
-        } else {
-            Project project = projectEJB.findProject(Long.parseLong(value));
-            return project;
-        }
+        } 
+        
+        try {
+            return projectEJB.findProject(Long.valueOf(stringValue));
+        } catch (Exception e){
+            throw new ConverterException("Not a valid project ID");
+        }      
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null) {
-            logger.log(Level.WARNING, "Null object");
+    public String getAsString(FacesContext context, UIComponent component, Object modelObject) {
+        if (modelObject == null) {
             return "";
-        } 
-        
-        if (value instanceof Project) {
-             return ((Project) value).getId().toString();
-        } else {
-            // logger.log(Level.FINE, "Exp number: " + ((Experiment) value).getId().toString());
-            logger.log(Level.WARNING, "invalide Project");
-            // new FacesMessage(value + " is not a valid Project")
-            throw new ConverterException(value + " is not a valid Project");
         }
+        
+        if (modelObject instanceof Project) {
+            return ((Project) modelObject).getId().toString();
+        } else {
+            throw new ConverterException("Not a valid project");
+        }       
     }
 }

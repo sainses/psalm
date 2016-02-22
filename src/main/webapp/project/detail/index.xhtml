@@ -21,8 +21,8 @@
                         #{param}
                         <!--<span class="gray">Use this page to start from scratch and place your custom content.</span>-->
                         <p:dataTable value="#{taskView.tasks}" var="task"   emptyMessage="No tasks found">
-                            <p:column headerText="WBS" sortBy="#{task.work}">
-                                <h:outputText value="#{task.work}"/>
+                            <p:column headerText="WBS" sortBy="#{task.WBSnumber}">
+                                <h:outputText value="#{task.WBSnumber}"/>
                             </p:column>
                             <p:column headerText="Description" sortBy="#{task.description}">
                                 <h:outputText value="#{task.description}"/>
@@ -36,12 +36,10 @@
                             <p:column headerText="Start Date" sortBy="#{task.startDate}">
                                 <h:outputText value="#{task.startDate}"/>
                             </p:column>
-                            <p:column headerText="Type" sortBy="#{task.type}">
-                                <h:outputText value="#{task.type}"/>
+                            <p:column headerText="Type" sortBy="#{task.taskType}">
+                                <h:outputText value="#{task.taskType}"/>
                             </p:column>
-                            <p:column headerText="Work" sortBy="#{task.work}">
-                                <h:outputText value="#{task.work}"/>
-                            </p:column>
+                            
                         </p:dataTable>                    
                     </div>
                 </div>

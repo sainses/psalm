@@ -6,29 +6,41 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "task")
 
 public class Task implements Serializable {
 
+    @Column(name = "duration")
     @Basic
     private Integer duration;
 
-    @ManyToOne(targetEntity = Task.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Task.class)
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "predecessors", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "successors", referencedColumnName = "id")})
     private Task predecessorTasks;
 
+    @Column(name = "task_type", nullable = false)
+    @Basic
+    private String taskType;
+
+    @Column(name = "end_date")
     @Basic
     private Date endDate;
 
     @OneToOne(targetEntity = Task.class)
+    @JoinColumn(name = "parent", referencedColumnName = "id")
     private Task parentTask;
-
-    @Basic
-    private Integer work;
 
     @Column(nullable = false)
     @Basic
@@ -38,20 +50,18 @@ public class Task implements Serializable {
     private Collection<Resource> resources;
 
     @ManyToOne(targetEntity = Project.class)
+    @JoinColumn(name = "project", nullable = false)
     private Project project;
 
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     @Id
     private Long id;
 
-    @Column(nullable = false)
-    @Basic
-    private String type;
-
-    @Column(nullable = false)
+    @Column(name = "wbs_number", unique = true)
     @Basic
     private String WBSnumber;
-    
+
+    @Column(name = "start_date")
     @Basic
     private Date startDate;
 
@@ -75,6 +85,14 @@ public class Task implements Serializable {
         this.predecessorTasks = predecessorTasks;
     }
 
+    public String getTaskType() {
+        return this.taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
     public Date getEndDate() {
         return this.endDate;
     }
@@ -89,14 +107,6 @@ public class Task implements Serializable {
 
     public void setParentTask(Task parentTask) {
         this.parentTask = parentTask;
-    }
-
-    public Integer getWork() {
-        return this.work;
-    }
-
-    public void setWork(Integer work) {
-        this.work = work;
     }
 
     public String getDescription() {
@@ -131,12 +141,12 @@ public class Task implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return this.type;
+    public String getWBSnumber() {
+        return this.WBSnumber;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setWBSnumber(String WBSnumber) {
+        this.WBSnumber = WBSnumber;
     }
 
     public Date getStartDate() {

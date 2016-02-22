@@ -7,34 +7,38 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 
 public class EffortRecord implements Serializable {
 
+    @Column(name = "hours")
     @Basic
     private Float hours;
 
     @ManyToOne(targetEntity = Task.class)
+    @JoinColumn(name = "task", referencedColumnName = "id")
     private Task task;
 
     @ManyToOne(targetEntity = Resource.class)
+    @JoinColumn(name = "resource", referencedColumnName = "id", nullable = false)
     private Resource resource;
 
-    @Column(nullable = false)
+    @Column(name = "entered_at", nullable = false)
     @Basic
     private Timestamp enteredAt;
 
-    @Column(length = 2048)
+    @Column(name = "comment", length = 2048)
     @Basic
     private String comment;
 
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "effort_date", nullable = false)
     @Basic
     private Date effortDate;
 

@@ -4,7 +4,23 @@
     <jta-data-source>jdbc/com.sainses.psalm</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create-or-extend-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="DEFAULT_PU" transaction-type="JTA">
+    <jta-data-source>jdbc/sample</jta-data-source>
+    <class>com.sainses.psalm.ent.EffortRecord</class>
+    <class>com.sainses.psalm.ent.Project</class>
+    <class>com.sainses.psalm.ent.ProjectRole</class>
+    <class>com.sainses.psalm.ent.ProjectStatus</class>
+    <class>com.sainses.psalm.ent.Resource</class>
+    <class>com.sainses.psalm.ent.SysRole</class>
+    <class>com.sainses.psalm.ent.SysUser</class>
+    <class>com.sainses.psalm.ent.Task</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

@@ -1,8 +1,10 @@
 package com.sainses.psalm.ent;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -10,11 +12,14 @@ import javax.persistence.ManyToOne;
 public class ProjectRole implements Serializable {
 
     @ManyToOne(targetEntity = SysRole.class)
+    @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)
     private SysRole role;
 
     @ManyToOne(targetEntity = Project.class)
+    @JoinColumn(name = "project", referencedColumnName = "id", nullable = false)
     private Project project;
 
+    @Column(name = "id")
     @Id
     private Long id;
 
