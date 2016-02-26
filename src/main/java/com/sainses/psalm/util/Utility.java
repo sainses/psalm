@@ -25,11 +25,20 @@ package com.sainses.psalm.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author vvuppala
  */
 public class Utility {
+    private static final Logger logger = Logger.getLogger(Utility.class.getName());
     
+    public static void showMessage(FacesMessage.Severity severity, String summary, String message) {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage(severity, summary, message));
+        // FacesMessage n = new FacesMessage();
+    }
 }

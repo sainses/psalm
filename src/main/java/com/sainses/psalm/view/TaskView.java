@@ -44,7 +44,8 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class TaskView implements Serializable {
-    private static final Logger logger = Logger.getLogger(TaskView.class.getName());
+    private static final String className = TaskView.class.getCanonicalName();
+    private static final Logger logger = Logger.getLogger(className);
     
     @EJB
     private ProjectEJB projectEJB;
@@ -54,12 +55,14 @@ public class TaskView implements Serializable {
     
     @PostConstruct
     private void init() {
-        logger.log(Level.INFO, "Postconstruct {0} ", TaskView.class.getName());
+        final String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+        logger.logp(Level.INFO, className, methodName, "Postconstruct {0} ", TaskView.class.getName());
         // tasks = projectEJB.getTasks(selectedProject);
     }
     
     public void initTasks() {
-        logger.log(Level.INFO, "initializing tasks for project {0}", selectedProject);
+        final String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+        logger.logp(Level.INFO, className, methodName, "initializing tasks for project {0}", selectedProject);
         tasks = projectEJB.getTasks(selectedProject);
     }
     // getters and setters

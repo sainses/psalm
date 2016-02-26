@@ -19,6 +19,7 @@ import com.sainses.psalm.ejb.ProjectEJB;
 import com.sainses.psalm.ent.Project;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -32,7 +33,7 @@ import javax.inject.Named;
  */
 // @FacesConverter(value = "projectConverter")
 @Named
-@Dependent  // can be applicaoitn scoped
+@RequestScoped  // can be applicaoitn scoped
 public class ProjectConverter implements Converter {
 
     @EJB

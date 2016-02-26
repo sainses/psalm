@@ -9,7 +9,8 @@
     <ui:define name="content">        
         <f:metadata>
             <f:viewParam name="project" value="#{taskView.selectedProject}" 
-                         converter="#{projectConverter}" required="#{not facesContext.postback}" requiredMessage="The project is either invalid or missing"/>
+                         converter="#{projectConverter}"  converterMessage="The project invalid"
+                         required="#{not facesContext.postback}" requiredMessage="The project is missing"/>
             <f:viewAction action="#{taskView.initTasks()}" />
         </f:metadata>
 
@@ -24,8 +25,8 @@
                             <p:column headerText="WBS" sortBy="#{task.WBSnumber}">
                                 <h:outputText value="#{task.WBSnumber}"/>
                             </p:column>
-                            <p:column headerText="Description" sortBy="#{task.description}">
-                                <h:outputText value="#{task.description}"/>
+                            <p:column headerText="Name" sortBy="#{task.name}">
+                                <h:outputText value="#{task.name}"/>
                             </p:column>
                             <p:column headerText="Duration" sortBy="#{task.duration}">
                                 <h:outputText value="#{task.duration}"/>

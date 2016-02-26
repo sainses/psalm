@@ -12,39 +12,67 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "task")
-
 public class Task implements Serializable {
+
+    @Column(name = "id", nullable = false)
+    @Id
+    private Long id;
+    
+    @Column(name = "wbs_number", unique = true)
+    @Basic
+    private String WBSnumber;
 
     @Column(name = "duration")
     @Basic
     private Integer duration;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Task.class)
-    @JoinTable(joinColumns = {
-        @JoinColumn(name = "predecessors", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "successors", referencedColumnName = "id")})
-    private Task predecessorTasks;
-
+    
     @Column(name = "task_type", nullable = false)
     @Basic
     private String taskType;
 
+    @Column(name="name", nullable = false)
+    @Basic
+    private String name;
+     
+    @Column(name = "start_date")
+    @Basic
+    private Date startDate;
+     
     @Column(name = "end_date")
     @Basic
     private Date endDate;
-
-    @OneToOne(targetEntity = Task.class)
+    
+    @Column(name="active")
+    @Basic
+    private boolean active;
+    
+    @Column(name="cost")
+    @Basic
+    private Double cost;
+    
+    @Column(name="milestone")
+    @Basic
+    private boolean milestone;
+    
+    @Column(name="summary")
+    @Basic
+    private boolean summary;
+    
+//    @Column(name="rollup")
+//    @Basic
+//    private boolean rollup;
+//    
+    @Column(name="scheduled_work")
+    @Basic
+    private Double scheduledWork;
+    
+    @ManyToOne(targetEntity = Task.class)
     @JoinColumn(name = "parent", referencedColumnName = "id")
     private Task parentTask;
-
-    @Column(nullable = false)
-    @Basic
-    private String description;
 
     @ManyToMany(targetEntity = Resource.class, mappedBy = "tasks")
     private Collection<Resource> resources;
@@ -52,19 +80,13 @@ public class Task implements Serializable {
     @ManyToOne(targetEntity = Project.class)
     @JoinColumn(name = "project", nullable = false)
     private Project project;
-
-    @Column(name = "id", nullable = false)
-    @Id
-    private Long id;
-
-    @Column(name = "wbs_number", unique = true)
-    @Basic
-    private String WBSnumber;
-
-    @Column(name = "start_date")
-    @Basic
-    private Date startDate;
-
+    
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Task.class)
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "predecessors", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "successors", referencedColumnName = "id")})
+    private Task predecessorTasks;
+    
     public Task() {
 
     }
@@ -109,12 +131,52 @@ public class Task implements Serializable {
         this.parentTask = parentTask;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public boolean isMilestone() {
+        return milestone;
+    }
+
+    public void setMilestone(boolean milestone) {
+        this.milestone = milestone;
+    }
+
+    public boolean isSummary() {
+        return summary;
+    }
+
+    public void setSummary(boolean summary) {
+        this.summary = summary;
+    }
+
+    public Double getScheduledWork() {
+        return scheduledWork;
+    }
+
+    public void setScheduledWork(Double scheduledWork) {
+        this.scheduledWork = scheduledWork;
     }
 
     public Collection<Resource> getResources() {
