@@ -82,6 +82,15 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.sainses.psalm.auth.AuthFilter</filter-class>
+    </filter>   
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/app/*</url-pattern>
+    </filter-mapping>
 </web-app>

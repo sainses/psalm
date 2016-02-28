@@ -18,18 +18,17 @@
             <div class="Container100">
                 <div class="ContainerIndent">
                     <div class="Card TexAlCenter">                 
-                        <h2>Tasks</h2>  
-                        #{param}
+                        <h2>Project: #{taskView.selectedProject.name}</h2>                       
                         <!--<span class="gray">Use this page to start from scratch and place your custom content.</span>-->
                         <p:dataTable value="#{taskView.tasks}" var="task"   emptyMessage="No tasks found">
-                            <p:column headerText="WBS" sortBy="#{task.WBSnumber}">
-                                <h:outputText value="#{task.WBSnumber}"/>
+                            <p:column headerText="WBS" sortBy="#{task.WBSnumber}" style="text-align: left;">
+                                <h:outputText value="#{task.WBSnumber}" />
                             </p:column>
                             <p:column headerText="Name" sortBy="#{task.name}">
                                 <h:outputText value="#{task.name}"/>
                             </p:column>
-                            <p:column headerText="Duration" sortBy="#{task.duration}">
-                                <h:outputText value="#{task.duration}"/>
+                            <p:column headerText="Duration" sortBy="#{task.duration}" style="text-align: right;">
+                                <h:outputText value="#{task.duration}" />
                             </p:column>
                             <p:column headerText="End Date" sortBy="#{task.endDate}">
                                 <h:outputText value="#{task.endDate}"/>
@@ -37,8 +36,8 @@
                             <p:column headerText="Start Date" sortBy="#{task.startDate}">
                                 <h:outputText value="#{task.startDate}"/>
                             </p:column>
-                            <p:column headerText="Type" sortBy="#{task.taskType}">
-                                <h:outputText value="#{task.taskType}"/>
+                            <p:column headerText="Type" sortBy="#{task.cost}" style="text-align: right;">
+                                <h:outputText value="#{task.cost}"/>
                             </p:column>
                             
                         </p:dataTable>                    

@@ -33,12 +33,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author vuppala
  */
 // @WebFilter("/admin/*")
-public class AdminAuthFilter implements Filter {
+public class AuthFilter implements Filter {
     
     @EJB
     private AuthManager authManager;
     
-    private static final Logger logger = Logger.getLogger(AdminAuthFilter.class.getName());
+    private static final Logger logger = Logger.getLogger(AuthFilter.class.getName());
     
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -49,13 +49,13 @@ public class AdminAuthFilter implements Filter {
             logger.log(Level.SEVERE, "authManager is null");
         }      
         
-        if (authManager != null ) {
+        if (authManager != null && authManager.isValidUser()) {
             chain.doFilter(request, response);
         } else {
             logger.log(Level.FINE, "not authorized to admin");
             String contextPath = req.getContextPath();
             HttpServletResponse res = (HttpServletResponse) response;
-            res.sendRedirect(contextPath + "/auth/unauthorized.xhtml");           
+            res.sendRedirect(contextPath + "/login.xhtml");           
         } 
     }
 

@@ -17,15 +17,12 @@ package com.sainses.psalm.auth;
 import com.sainses.psalm.ent.SysUser;
 import com.sainses.psalm.util.Utility;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 
@@ -36,10 +33,13 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class UserSession implements Serializable {   
+public class UserSession implements Serializable {
+    @EJB
+    private AuthEJB authEJB;
+    
     private static final Logger logger = Logger.getLogger(UserSession.class.getName());
 
-    private String userId; // user unique login name
+    private String loginId; // user unique login name
     private String token;   // auth token
     private SysUser user;
     private String currentTheme; // current GUI theme
@@ -73,27 +73,27 @@ public class UserSession implements Serializable {
      * Start user session
      *
      * @author vuppala
-     * @param userId User login id
+     * @param loginid User login id
      * @param role User role
      *
      */
-    public void start(String userId)  {
-        this.userId = userId;
+    public void start(String loginid)  {
+        this.loginId = loginid;
         
-        user = authEJB.findUser(userId);
+        user = authEJB.findUser(loginid);
         
         if (user != null) {
             
             
             
         } else {
-            logger.log(Level.WARNING, "User not defined in the Hour Log database: {0}", userId);
-            Utility.showMessage(FacesMessage.SEVERITY_FATAL, "You are not registered as Hour Log user", "Please contact Hour Log administrator.");
+            logger.log(Level.WARNING, "User not defined in the Hour Log database: {0}", loginid);
+            Utility.showMessage(FacesMessage.SEVERITY_FATAL, "You are not registered as Psalm user", "Please contact Psalm administrator.");
         }
         // facility = facilityEJB.defaultFacility(user);      
         //logbook = facility.getOpsLogbook();
         if (currentTheme == null) {
-            currentTheme = prefEJB.defaultThemeName();
+            // currentTheme = prefEJB.defaultThemeName();
         }
         
         // loggedIn = true;
@@ -108,7 +108,7 @@ public class UserSession implements Serializable {
      *
      */
     public void end() {
-        userId = null;
+        loginId = null;
         user = null;
         // loggedIn = false;
         token = null;
@@ -117,7 +117,7 @@ public class UserSession implements Serializable {
     // -- getters/setters 
     
     public String getUserId() {
-        return userId;
+        return loginId;
     }
 
     public String getToken() {

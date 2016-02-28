@@ -9,15 +9,13 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import org.primefaces.context.RequestContext;
 
 /**
  * State for the login dialog
@@ -25,18 +23,19 @@ import org.primefaces.context.RequestContext;
  * @author Vasu V <vuppala@frib.msu.org>
  */
 @Named
-@SessionScoped
-public class LoginManager implements Serializable {
+@RequestScoped
+public class LoginView implements Serializable {
 
     @Inject
     private UserSession userSession;
     
-    private static final Logger logger = Logger.getLogger(LoginManager.class.getName());
-    private String userid;
-    private char[] password;  // better to use char array than string for passwords
+    private static final Logger logger = Logger.getLogger(LoginView.class.getName());
+    private String loginId;
+    private String password;  // better to use char array than string for passwords
+    // private char[] password;  // better to use char array than string for passwords
     private boolean loggedin = false;
 
-    public LoginManager() {
+    public LoginView() {
     }
 
     @PostConstruct
@@ -55,39 +54,39 @@ public class LoginManager implements Serializable {
     public String onLogin() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String nextView = "home?faces-redirect=true";
+        String nextView = "home";
 
         try {
             if (request.getUserPrincipal() == null) {
-                request.login(userid, String.valueOf(password));
+                request.login(loginId, String.valueOf(password));
 
                 loggedin = true;
-                userSession.start(userid);
-                logger.log(Level.FINE, "Login: {0}", userid);
+                userSession.start(loginId);
+                logger.log(Level.INFO, "Login: {0}", loginId);
                 
-                showMessage(FacesMessage.SEVERITY_INFO, "Welcome " + userid, "");
-                RequestContext.getCurrentInstance().addCallbackParam("loginSuccess", true); // To inform the login form
-                nextView = context.getViewRoot().getViewId() + "?faces-redirect=true"; // redirect to the current page
+                showMessage(FacesMessage.SEVERITY_INFO, "Welcome " + loginId, "");
+                // RequestContext.getCurrentInstance().addCallbackParam("loginSuccess", true); // To inform the login form
+                // nextView = context.getViewRoot().getViewId() + "?faces-redirect=true"; // redirect to the current page
                 context.getExternalContext().getFlash().setKeepMessages(true); // Keep messages in Flash
             } else {
-                showMessage(FacesMessage.SEVERITY_INFO, "Strange, you are already logged in!", userid);
-                logger.log(Level.FINE, "Strange, you are already logged in: {0}", userid);
+                showMessage(FacesMessage.SEVERITY_INFO, "Strange, you are already logged in!", loginId);
+                logger.log(Level.FINE, "Strange, you are already logged in: {0}", loginId);
             }
         } catch (ServletException e) {
             showMessage(FacesMessage.SEVERITY_ERROR, "That did not work. Please try again.", "Probably your password was wrong?");
-            RequestContext.getCurrentInstance().addCallbackParam("loginSuccess", false); // For  view
-            logger.log(Level.FINE, "Authentication failed for {0}", userid);
+            // RequestContext.getCurrentInstance().addCallbackParam("loginSuccess", false); // For  view
+            logger.log(Level.SEVERE, "Authentication failed for {0}", loginId);
             loggedin = false;
         } catch (Exception e) {
             showMessage(FacesMessage.SEVERITY_ERROR, "Cannot set user session! ", e.getMessage());
-            logger.log(Level.SEVERE, "Cannot set user session for {0}", userid);
+            logger.log(Level.SEVERE, "Cannot set user session for {0}", loginId);
             System.out.print(e);
         } finally {
-            if (password != null) {
-                for (int i = 0; i < password.length; i++) {
-                    password[i] = 'X'; // Erase password         
-                }
-            }
+//            if (password != null) {
+//                for (int i = 0; i < password.length; i++) {
+//                    password[i] = 'X'; // Erase password         
+//                }
+//            }
         }
 
         return nextView;
@@ -105,9 +104,9 @@ public class LoginManager implements Serializable {
 
         try {
             request.logout();
-            logger.log(Level.FINE, "Logout: {0}", userid);
+            logger.log(Level.FINE, "Logout: {0}", loginId);
             loggedin = false;
-            userid = null;
+            loginId = null;
             userSession.end();
             showMessage(FacesMessage.SEVERITY_INFO, "You have been logged out.", "Have a nice day!");
             nextView = context.getViewRoot().getViewId() + "?faces-redirect=true"; // redirect to the current page
@@ -115,7 +114,7 @@ public class LoginManager implements Serializable {
             context.getExternalContext().invalidateSession();
         } catch (Exception e) {
             showMessage(FacesMessage.SEVERITY_ERROR, "Strangely, logout has failed", "That's odd!");
-            logger.log(Level.SEVERE, "Strangely, logout has failed: {0}", userid);
+            logger.log(Level.SEVERE, "Strangely, logout has failed: {0}", loginId);
             System.out.print(e);
         } finally {
 
@@ -125,22 +124,25 @@ public class LoginManager implements Serializable {
     }
 
     // -- getters and setters
-    public String getUserid() {
-        return userid;
+
+    public String getLoginId() {
+        return loginId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
+    
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
+    
     public boolean isLoggedin() {
         return loggedin;
     }

@@ -18,11 +18,16 @@
                   
                     <!--<span class="gray">Use this page to start from scratch and place your custom content.</span>-->
                     <p:dataTable value="#{projectView.projects}" var="proj"   emptyMessage="No projects found">
-                        <p:column headerText="ID" sortBy="#{proj.id}">
+                         
+                                <p:column headerText="ID" sortBy="#{proj.id}" rendered="false">
                             <h:outputText value="#{proj.id}"/>
                         </p:column>
                         <p:column headerText="Name" sortBy="#{proj.name}">
-                            <h:outputText value="#{proj.name}"/>
+                            <p:link outcome="tasks">
+                                <h:outputText value="#{proj.name}"/>
+                                <f:param name="project" value="#{proj.id}"/>
+                            </p:link>
+                            
                         </p:column>
                         <p:column headerText="Description" >
                             <h:outputText value="#{proj.description}"/>

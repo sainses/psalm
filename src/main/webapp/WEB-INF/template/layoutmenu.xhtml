@@ -9,45 +9,31 @@
     <div class="layout-menu-cover-top Animated05" id="layout-menu-cover">
         <h:form id="menuform">
             <pm:menu>
-                <p:menuitem id="rm_dashboard" value=" Dashboard" icon="icon-feather" outcome="/dashboard"/>
-                <p:submenu id="rm_orientation" label=" Menu Options" icon="icon-menu">
+                <p:menuitem id="rm_home" value=" Home" icon="icon-home" outcome="home"/>
+                
+                <p:submenu id="rm_orientation" label=" Menu Options" icon="icon-menu" rendered="false">
                     <p:menuitem id="rm_top" value=" Top Menu" icon="icon-layout7" url="#" onclick="Adamantium.changeMenuLayout('top');return false;" />
                     <p:menuitem id="rm_left" value=" Left Menu" icon="icon-layout14" url="#" onclick="Adamantium.changeMenuLayout('left');return false;" />
                     <p:menuitem id="rm_dark" value=" Dark Menu" icon="icon-pen-alt-fill" url="#" onclick="$('body').addClass('dark');return false;" />
                     <p:menuitem id="rm_light" value=" Light Menu" icon="icon-pen-alt-stroke" url="#" onclick="$('body').removeClass('dark');return false;" />
                 </p:submenu>
-                <p:submenu id="rm_theme" label="Adamantium Theme" icon="icon-screen">
-                    
-                </p:submenu>
-                <p:submenu id="rm_default" label=" Default Pages" icon="icon-list">
-                 
-                </p:submenu>
-                <p:submenu id="rm_hierarchy" label=" Menu Hierarchy" icon="icon-folder-stroke">
-                    <p:submenu id="rm_sm1" label=" Submenu 1" icon="icon-folder-stroke">
-                        <p:submenu id="rm_sm11" label=" Submenu 1.1" icon="icon-folder-stroke">
-                            <p:submenu id="rm_sm111" label=" Submenu 1.1.1" icon="icon-folder-stroke">
-                               
-                            </p:submenu>
-                        </p:submenu>
-                    </p:submenu>
-                    <p:submenu id="rm_sm2" label=" Submenu 2" icon="icon-folder-stroke">
-                        <p:submenu id="rm_22" label=" Submenu 2.2" icon="icon-folder-stroke">
-                            <p:submenu id="rm_221" label=" Submenu 2.2.1" icon="icon-folder-stroke">
-                               
-                            </p:submenu>
-                        </p:submenu>
-                    </p:submenu>
+                
+                <p:submenu id="rm_theme" label="Projects" icon="icon-screen">
+                    <p:menuitem id="pr_all" value=" All Projects" icon="icon-screen" outcome="projects"/>
+                    <p:menuitem id="pr_my" value=" My Projects" icon="icon-screen" outcome="myProjects" disabled="true"/>
                 </p:submenu>
                 
-                <p:submenu id="rm_links" label=" Links" icon="icon-inbox">
-                    
-                    <p:submenu id="rm_docs" label=" Documentation" icon="icon-inbox">
-                        
-                    </p:submenu>
+                <p:submenu id="rm_effort" label=" Effort" icon="icon-list">
+                    <p:menuitem id="ef_my" value=" My Tasks" icon="icon-list" outcome="home" disabled="true"/>
+                </p:submenu>
+                
+                
+                <p:submenu id="rm_reports" label=" Reports" icon="icon-inbox">
+                    <p:menuitem id="rep_proj" value=" Project Status" icon="icon-list" outcome="home" disabled="true"/>
+                    <p:menuitem id="rep_res" value=" Resource Allocation" icon="icon-list" outcome="home" disabled="true"/>
                 </p:submenu>
             </pm:menu>
         </h:form>
-
     </div>
 
 </ui:composition>

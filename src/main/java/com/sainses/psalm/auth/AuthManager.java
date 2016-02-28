@@ -32,7 +32,7 @@ public class AuthManager {
     @Inject
     private UserSession userSession;
 
-    @PersistenceContext(unitName = "org.openepics.discs.hourlog")
+    @PersistenceContext(unitName = "psalm-data")
     private EntityManager em;
     private static final Logger logger = Logger.getLogger(AuthManager.class.getName());
 

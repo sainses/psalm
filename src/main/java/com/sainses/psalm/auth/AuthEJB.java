@@ -36,7 +36,7 @@ public class AuthEJB {
 
 
     private static final Logger logger = Logger.getLogger(AuthEJB.class.getName());
-    @PersistenceContext(unitName = "org.openepics.discs.hourlog")
+    @PersistenceContext(unitName = "psalm-data")
     private EntityManager em;
     
     /**
@@ -136,7 +136,7 @@ public class AuthEJB {
      * @return User for the given login id
      */
     public SysUser findUser(String loginId) {
-        TypedQuery<SysUser> query = em.createNamedQuery("Sysuser.findByLoginId", SysUser.class).setParameter("loginId", loginId);
+        TypedQuery<SysUser> query = em.createNamedQuery("SysUser.findByLoginId", SysUser.class).setParameter("loginId", loginId);
         List<SysUser> emps = query.getResultList();
 
         if (emps == null || emps.isEmpty()) {

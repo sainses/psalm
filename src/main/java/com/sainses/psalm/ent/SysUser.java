@@ -9,14 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="sysuser")
-
-
-
+@NamedQueries({
+    @NamedQuery(name = "SysUser.findAll", query = "SELECT s FROM SysUser s"),
+    @NamedQuery(name = "SysUser.findByLoginId", query = "SELECT s FROM SysUser s WHERE s.loginId = :loginId"),
+    })
 public class SysUser implements Serializable {
+    @Column(name="id",nullable=false)
+    @Id
+    private Long id;
 
     @Column(name="last_name",nullable=false)
     @Basic
@@ -35,16 +41,13 @@ public class SysUser implements Serializable {
     private String loginId;
 
     @ManyToMany(targetEntity = ProjectRole.class)
-    @JoinTable(name="sysuser_project_role",joinColumns={@JoinColumn(name="project_role",referencedColumnName="id",nullable=false)},inverseJoinColumns={@JoinColumn(name="sysuser",referencedColumnName="id",nullable=false)})
+    @JoinTable(name="sysuser_project_role",joinColumns={@JoinColumn(name="project_role",referencedColumnName="id",nullable=false)},
+            inverseJoinColumns={@JoinColumn(name="sysuser",referencedColumnName="id",nullable=false)})
     private List<ProjectRole> projectRoles;
 
     @Column(name="description")
     @Basic
     private String description;
-
-    @Column(name="id",nullable=false)
-    @Id
-    private Long id;
 
     public SysUser() {
 
